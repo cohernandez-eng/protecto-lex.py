@@ -7,19 +7,26 @@ def main():
 
     codigo = """
     entero x = 10;
-    x = x + 5;
+    entero limite = 20;
+
+    mientras (x <= limite) {
+        si (x != 15) {
+            imprimir x;
+        }
+        x = x + 2;
+    }
     """
 
     print("=" * 60)
-    print("COMPILADOR - ENTREGA 1")
+    print("COMPILADOR")
     print("=" * 60)
 
     print("\n[CODIGO FUENTE]")
     print(codigo)
 
-    # -------------------------------------------------
-    # FASE 1: ANALISIS LEXICO
-    # -------------------------------------------------
+    
+    # FASE 1
+    
 
     lexer = Lexer(codigo)
     tokens = lexer.analizar()

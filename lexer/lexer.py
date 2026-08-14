@@ -11,23 +11,27 @@ class Lexer:
         self.tokens: List[Token] = []
 
         self.esquema_tokens = [
-                ('PR_ENTERO',  r'\bentero\b'),
-                ('NUMERO',     r'\d+'),
-                ('ID',         r'[a-zA-Z_][a-zA-Z0-9_]*'),
+                # Palabras reservadas (deben ir antes de ID para que no
+                # sean interpretadas como identificadores)
+                ('PR_ENTERO',   r'\bentero\b'),
+                ('PR_SI',       r'\bsi\b'),
+                ('PR_MIENTRAS', r'\bmientras\b'),
+                ('PR_IMPRIMIR', r'\bimprimir\b'),
+
+                ('NUMERO',      r'\d+'),
+                ('ID',          r'[a-zA-Z_][a-zA-Z0-9_]*'),
+
+                # Operadores relacionales (deben ir antes de ASIGNACION
+                # para que '==', '!=', '<=' y '>=' no se partan en dos
+                # tokens de un solo caracter)
+                ('OP_REL',      r'==|!=|<=|>=|<|>'),
+
                 ('OP_ARIT',     r'[+\-*/]'),
-                ('ASIGNACION', r'='),
+                ('ASIGNACION',  r'='),
                 ('DELIM',       r'[();{}]'),
                 ('ESPACIO',     r'[ \t]+'),
                 ('NUEVA_LINEA', r'\n'),
                 ('ERROR',       r'.')
-
-# Estudiante implementar 
-#                PR SI
-#                PR_MIENTRAS
-#                PR_IMPRIMIR
-#                OP_REL
-#                Y LOS TOKENS ADICIONALES PROPUESTOS 
-
         ]
 
         self.regex_maestro = re.compile(
