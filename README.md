@@ -157,13 +157,37 @@ Pruebas automáticas: **34 en total, todas pasan** (14 del docente en `test_inte
 
 ## 5. Evidencias de ejecución
 
-En la carpeta [`evidencias/`](evidencias/) está la salida de cada caso en `.txt` y `.png`:
+### Capturas tomadas en VS Code (Windows)
+
+Carpeta [`evidencias/capturas_vscode/`](evidencias/capturas_vscode/):
+
+| # | Captura | Qué demuestra |
+|---|---|---|
+| 1 | `01_ejecucion_main_vscode.png` | `main.py` ejecutándose en VS Code: código fuente y Fase 1 (lexer) |
+| 2 | `02_pruebas_34_ok.png` | Las 34 pruebas (docente + extensión) pasan: `Ran 34 tests ... OK` |
+| 3 | `03_git_clone.png` | Clonado del repositorio con el historial de la Entrega 1 |
+| 4 | `04_git_commit.png` | Commit de la Entrega 2 con los archivos nuevos |
+| 5 | `05_git_push.png` | Publicación en GitHub (`main -> main`) |
+
+**Pruebas automáticas (34 OK):**
+
+![Pruebas OK](evidencias/capturas_vscode/02_pruebas_34_ok.png)
+
+**Ejecución en VS Code:**
+
+![main.py en VS Code](evidencias/capturas_vscode/01_ejecucion_main_vscode.png)
+
+### Salidas completas de cada caso
+
+Para ver el AST completo de cada programa, en [`evidencias/`](evidencias/) está la salida íntegra de la consola en `.txt` (y su imagen `.png`):
 
 1. `01_programa_valido` — programa válido y su AST
-2. `02_error_sintactico` — detección de error sintáctico
-3. `03_extension_personal` — programa que usa la extensión
-4. `04_error_extension` — error sintáctico con la extensión
-5. `05_pruebas_unitarias` — las 34 pruebas en verde
+2. `02_error_sintactico` — detección de error sintáctico (falta `;`)
+3. `03_extension_personal` — programa que usa la extensión personal
+4. `04_error_extension` — error sintáctico con la extensión (`sino` sin `si`)
+5. `05_pruebas_unitarias` — detalle de las 34 pruebas
+
+Se pueden reproducir con los comandos de la sección *Cómo ejecutar*.
 
 ## Sintaxis vs. semántica
 
