@@ -1,7 +1,15 @@
-"""Nodos AST para todas las estructuras sintácticas de esta etapa.
+"""
+==========================================================================
+ NODOS DEL AST (ÁRBOL DE SINTAXIS ABSTRACTA)
+==========================================================================
+ Cada clase es un TIPO DE NODO del árbol que construye el parser.
+ Ejemplo:  entero x = 5 + 3;
+   Declaracion(tipo='entero', id='x',
+               expr=OpBinaria(izq=Numero(5), op='+', der=Numero(3)))
 
-Los nodos base son los del proyecto del docente. Al final están los nodos
-de la EXTENSIÓN PERSONAL (tokens adicionales del lexer).
+ Los nodos base son los del proyecto del docente. Al final están los
+ nodos de mi EXTENSIÓN PERSONAL (Decimal, Cadena, Funcion, Leer, ...).
+==========================================================================
 """
 from dataclasses import dataclass, field
 from typing import List, Optional

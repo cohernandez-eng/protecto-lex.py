@@ -1,20 +1,36 @@
 
-"""Compilador incremental: Lexer -> Parser -> AST. No ejecuta ni analiza semántica.
+"""
+==========================================================================
+ MAIN.PY: PUNTO DE ENTRADA DEL COMPILADOR
+==========================================================================
+ Autor: Celso Otoniel Hernández - Carné 2400455
 
-Autor: Celso Otoniel Hernández - Carné 2400455
+ Une las dos fases en orden:
+
+   código fuente (.txt)
+        |
+        v
+   FASE 1: Lexer  (lexer/lexer.py)    -> lista de tokens
+        |
+        v
+   FASE 2: Parser (parser/parser.py)  -> AST (arbol_ast/nodos.py)
+
+ Uso:  python main.py pruebas/07_extension_personal.txt
+ No ejecuta el programa ni hace análisis semántico (próxima entrega).
+==========================================================================
 """
 import argparse
 from pathlib import Path
-from lexer.lexer import Lexer
-from parser.parser import Parser
-from arbol_ast.imprimir_arbol import arbol_texto
+from lexer.lexer import Lexer          # FASE 1: mi analizador léxico
+from parser.parser import Parser       # FASE 2: mi analizador sintáctico
+from arbol_ast.imprimir_arbol import arbol_texto  # dibuja el AST en consola
 
 BASE_DIR = Path(__file__).resolve().parent
 MOSTRAR_REPR = False
 
 
 def analizar_lexico(codigo):
-    print('\n=== FASE 1 - ANALISIS LEXICO ===')
+    print('\n=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===')
     tokens = Lexer(codigo).analizar()
     for token in tokens:
         print(' ', token)
@@ -22,7 +38,7 @@ def analizar_lexico(codigo):
 
 
 def analizar_sintactico(tokens):
-    print('\n=== FASE 2 - ANALISIS SINTACTICO ===')
+    print('\n=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===')
     arbol = Parser(tokens).parsear()
     print('Analisis sintactico correcto. AST generado:\n')
     print(arbol_texto(arbol))

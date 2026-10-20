@@ -1,6 +1,34 @@
-"""Analizador sintáctico descendente recursivo (Entrega 2: Lexer + Parser + AST).
+"""
+==========================================================================
+ FASE 2 DEL COMPILADOR: ANALIZADOR SINTÁCTICO (PARSER)
+==========================================================================
+ Autor: Celso Otoniel Hernández - Carné 2400455
+ Curso: Compiladores - USPG
 
-Autor: Celso Otoniel Hernández - Carné 2400455
+ ¿QUÉ HACE ESTE ARCHIVO?
+   Recibe la LISTA DE TOKENS que produjo el lexer (lexer/lexer.py),
+   revisa que respeten la GRAMÁTICA del lenguaje y construye el
+   AST (árbol de sintaxis abstracta) con las clases de arbol_ast/nodos.py.
+   Si los tokens no siguen la gramática lanza un SyntaxError con la línea.
+
+ ¿QUÉ TIPO DE PARSER ES?
+   DESCENDENTE RECURSIVO PREDICTIVO, LL(1):
+   - Descendente: empieza en la regla inicial 'programa' y baja hasta
+     los tokens (de la raíz del árbol hacia las hojas).
+   - Recursivo: CADA REGLA DE LA GRAMÁTICA ES UN MÉTODO de esta clase,
+     y los métodos se llaman entre sí (factor() vuelve a llamar a
+     expresion() cuando encuentra un paréntesis).
+   - Predictivo LL(1): decide qué regla usar mirando UN solo token
+     (self.token_actual), sin retroceder nunca.
+
+ CÓMO LEER ESTE ARCHIVO:
+   regla de la gramática          método que la implementa
+   ---------------------          ------------------------
+   programa                   ->  parsear()
+   sentencia                  ->  sentencia()
+   declaracion / asignacion   ->  declaracion() / asignacion()
+   expresion ... factor       ->  expresion() ... factor()
+   si / mientras / bloque     ->  sentencia_si() / sentencia_mientras() / bloque()
 
 Etapa A: declaraciones y asignaciones.            (TODO 1 - 4)
 Etapa B: expresiones y precedencia.               (TODO 5 - 8)
@@ -37,6 +65,10 @@ class Parser:
 
     # ------------------------------------------------------------------
     # Proporcionados por el docente
+    #   avanzar():   pasa al siguiente token.
+    #   coincidir(): "el token actual DEBE ser este". Si lo es, lo consume
+    #                y avanza; si no, lanza el error sintáctico.
+    #                Acepta el tipo ('ID') o el valor (';').
     # ------------------------------------------------------------------
     def avanzar(self):
         if self.pos < len(self.tokens) - 1:
@@ -143,6 +175,16 @@ class Parser:
     # ==================================================================
     # ETAPA B - EXPRESIONES Y PRECEDENCIA (de menor a mayor)
     #   o  <  y  <  no  <  OP_REL  <  + -  <  * /  <  unario -  <  factor
+    #
+    # IDEA CLAVE: cada nivel de precedencia es un método que SOLO llama
+    # al nivel siguiente. Así, en  5 + 3 * 2,  la multiplicación se arma
+    # "más abajo" en el árbol y se resuelve primero.
+    #
+    # Se usa un ciclo while en lugar de recursividad por la izquierda:
+    #   MAL:  aritmetica -> aritmetica '+' termino   (bucle infinito)
+    #   BIEN: aritmetica -> termino ('+' termino)*   (while)
+    # El while además deja la operación asociativa a la izquierda:
+    #   1 - 2 - 3  =  (1 - 2) - 3
     # ==================================================================
     def expresion(self) -> NodoAST:
         """TODO 5: punto de entrada de las expresiones.
@@ -295,6 +337,10 @@ class Parser:
 
     # ==================================================================
     # ETAPA D - EXTENSIÓN PERSONAL (tokens adicionales del lexer)
+    # Que el lexer reconozca un token no significa que el parser sepa
+    # usarlo: cada palabra nueva necesita su regla aquí y su nodo en
+    # arbol_ast/nodos.py. (Los comentarios son la excepción: el lexer los
+    # descarta y nunca llegan a esta fase.)
     # ==================================================================
     def sentencia_leer(self) -> Leer:
         """leer → 'leer' ID ';'"""
