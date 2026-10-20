@@ -1,0 +1,3 @@
+entero x = 0;
+mientras (x < 3) {
+    x = x + 1;

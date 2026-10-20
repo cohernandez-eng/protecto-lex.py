@@ -1,0 +1,13 @@
+// Programa valido con el ejemplo de la Entrega 1 (con imprimir(...)).
+entero x = 10;
+entero limite = 20;
+
+mientras (x <= limite) {
+    si (x != 15) {
+        imprimir(x);
+    }
+    x = x + 2;
+}
+
+entero total = (x - 4) * 3 + -2;
+imprimir(total);

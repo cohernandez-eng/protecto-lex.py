@@ -1,0 +1,2 @@
+entero resultado = 5 + 3 * 2;
+imprimir(resultado);

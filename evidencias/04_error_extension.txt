@@ -1,0 +1,31 @@
+$ python main.py pruebas/09_error_extension_sino_sin_si.txt
+
+=== MI COMPILADOR: LEXER + PARSER ===
+
+CODIGO FUENTE:
+// Error sintactico con la extension: 'sino' sin un 'si' previo.
+entero x = 5;
+sino {
+    imprimir(x);
+}
+
+
+=== FASE 1 - ANALISIS LEXICO ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=2)
+  Token(tipo='ID', valor='x', linea=2)
+  Token(tipo='ASIGNACION', valor='=', linea=2)
+  Token(tipo='NUMERO', valor='5', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='PR_SINO', valor='sino', linea=3)
+  Token(tipo='DELIM', valor='{', linea=3)
+  Token(tipo='PR_IMPRIMIR', valor='imprimir', linea=4)
+  Token(tipo='DELIM', valor='(', linea=4)
+  Token(tipo='ID', valor='x', linea=4)
+  Token(tipo='DELIM', valor=')', linea=4)
+  Token(tipo='DELIM', valor=';', linea=4)
+  Token(tipo='DELIM', valor='}', linea=5)
+  Token(tipo='EOF', valor='', linea=6)
+
+=== FASE 2 - ANALISIS SINTACTICO ===
+
+[Error Sintactico] Linea 3: 'sino' sin un 'si' previo, se encontro 'sino' (tipo: PR_SINO).

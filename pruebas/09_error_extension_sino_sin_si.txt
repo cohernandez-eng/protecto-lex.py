@@ -1,0 +1,5 @@
+// Error sintactico con la extension: 'sino' sin un 'si' previo.
+entero x = 5;
+sino {
+    imprimir(x);
+}

@@ -1,0 +1,14 @@
+PROYECTO INCREMENTAL: INTEGRACIÓN LEXER + PARSER
+
+Objetivo: integrar el analizador léxico de la entrega anterior con un analizador sintáctico que reconozca sentencias válidas y genere un AST.
+
+Instrucciones:
+1. Conservar el lexer que ya desarrollaste, incluyendo tus tokens adicionales.
+2. Integrarlo con main.py y completar los TODO de parser/parser.py.
+3. Reconocer declaraciones, asignaciones, expresiones y estructuras de control.
+4. Incorporar las reglas sintácticas correspondientes a tus tokens adicionales, o justificar por qué no necesitan cambios en el parser.
+5. Probar un programa válido, otro con error sintáctico y uno que use tu extensión.
+
+Esta entrega NO incluye análisis semántico ni ejecución de código.
+
+Entregable: enlace al repositorio GitHub con el código y evidencias de ejecución.

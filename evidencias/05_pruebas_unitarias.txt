@@ -1,0 +1,41 @@
+$ python -m unittest pruebas.test_integracion pruebas.test_extension -v
+
+test_imprimir (pruebas.test_integracion.TestControl.test_imprimir) ... ok
+test_mientras (pruebas.test_integracion.TestControl.test_mientras) ... ok
+test_si (pruebas.test_integracion.TestControl.test_si) ... ok
+test_bloque_sin_cerrar (pruebas.test_integracion.TestErrores.test_bloque_sin_cerrar) ... ok
+test_falta_identificador (pruebas.test_integracion.TestErrores.test_falta_identificador) ... ok
+test_falta_punto_y_coma (pruebas.test_integracion.TestErrores.test_falta_punto_y_coma) ... ok
+test_asociatividad (pruebas.test_integracion.TestExpresiones.test_asociatividad) ... ok
+test_parentesis (pruebas.test_integracion.TestExpresiones.test_parentesis) ... ok
+test_precedencia (pruebas.test_integracion.TestExpresiones.test_precedencia) ... ok
+test_error_lexico (pruebas.test_integracion.TestLexer.test_error_lexico) ... ok
+test_tokens_basicos (pruebas.test_integracion.TestLexer.test_tokens_basicos) ... ok
+test_asignacion (pruebas.test_integracion.TestParserBasico.test_asignacion) ... ok
+test_declaracion (pruebas.test_integracion.TestParserBasico.test_declaracion) ... ok
+test_sintaxis_no_es_semantica (pruebas.test_integracion.TestParserBasico.test_sintaxis_no_es_semantica) ... ok
+test_cadena_sin_cerrar_es_error_lexico (pruebas.test_extension.TestErroresExtension.test_cadena_sin_cerrar_es_error_lexico) ... ok
+test_funcion_sin_coma (pruebas.test_extension.TestErroresExtension.test_funcion_sin_coma) ... ok
+test_leer_sin_identificador (pruebas.test_extension.TestErroresExtension.test_leer_sin_identificador) ... ok
+test_logico_sin_operando (pruebas.test_extension.TestErroresExtension.test_logico_sin_operando) ... ok
+test_parar_sin_punto_y_coma (pruebas.test_extension.TestErroresExtension.test_parar_sin_punto_y_coma) ... ok
+test_sino_sin_si (pruebas.test_extension.TestErroresExtension.test_sino_sin_si) ... ok
+test_comentarios_se_descartan_y_cuentan_lineas (pruebas.test_extension.TestLexerExtension.test_comentarios_se_descartan_y_cuentan_lineas) ... ok
+test_literales (pruebas.test_extension.TestLexerExtension.test_literales) ... ok
+test_palabra_reservada_no_es_prefijo (pruebas.test_extension.TestLexerExtension.test_palabra_reservada_no_es_prefijo) ... ok
+test_tokens_del_catalogo (pruebas.test_extension.TestLexerExtension.test_tokens_del_catalogo) ... ok
+test_declaraciones_de_nuevos_tipos (pruebas.test_extension.TestParserExtension.test_declaraciones_de_nuevos_tipos) ... ok
+test_entonces_opcional (pruebas.test_extension.TestParserExtension.test_entonces_opcional) ... ok
+test_funcion_y_llamada (pruebas.test_extension.TestParserExtension.test_funcion_y_llamada) ... ok
+test_leer_parar_continuar (pruebas.test_extension.TestParserExtension.test_leer_parar_continuar) ... ok
+test_logico_menor_precedencia_que_relacional (pruebas.test_extension.TestParserExtension.test_logico_menor_precedencia_que_relacional) ... ok
+test_menos_unario (pruebas.test_extension.TestParserExtension.test_menos_unario) ... ok
+test_precedencia_logica (pruebas.test_extension.TestParserExtension.test_precedencia_logica) ... ok
+test_retornar_sin_valor (pruebas.test_extension.TestParserExtension.test_retornar_sin_valor) ... ok
+test_si_sino (pruebas.test_extension.TestParserExtension.test_si_sino) ... ok
+test_sino_si_encadenado (pruebas.test_extension.TestParserExtension.test_sino_si_encadenado) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.005s
+
+OK

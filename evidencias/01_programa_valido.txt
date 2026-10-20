@@ -1,0 +1,117 @@
+$ python main.py pruebas/08_programa_valido_completo.txt
+
+=== MI COMPILADOR: LEXER + PARSER ===
+
+CODIGO FUENTE:
+// Programa valido con el ejemplo de la Entrega 1 (con imprimir(...)).
+entero x = 10;
+entero limite = 20;
+
+mientras (x <= limite) {
+    si (x != 15) {
+        imprimir(x);
+    }
+    x = x + 2;
+}
+
+entero total = (x - 4) * 3 + -2;
+imprimir(total);
+
+
+=== FASE 1 - ANALISIS LEXICO ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=2)
+  Token(tipo='ID', valor='x', linea=2)
+  Token(tipo='ASIGNACION', valor='=', linea=2)
+  Token(tipo='NUMERO', valor='10', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='PR_ENTERO', valor='entero', linea=3)
+  Token(tipo='ID', valor='limite', linea=3)
+  Token(tipo='ASIGNACION', valor='=', linea=3)
+  Token(tipo='NUMERO', valor='20', linea=3)
+  Token(tipo='DELIM', valor=';', linea=3)
+  Token(tipo='PR_MIENTRAS', valor='mientras', linea=5)
+  Token(tipo='DELIM', valor='(', linea=5)
+  Token(tipo='ID', valor='x', linea=5)
+  Token(tipo='OP_REL', valor='<=', linea=5)
+  Token(tipo='ID', valor='limite', linea=5)
+  Token(tipo='DELIM', valor=')', linea=5)
+  Token(tipo='DELIM', valor='{', linea=5)
+  Token(tipo='PR_SI', valor='si', linea=6)
+  Token(tipo='DELIM', valor='(', linea=6)
+  Token(tipo='ID', valor='x', linea=6)
+  Token(tipo='OP_REL', valor='!=', linea=6)
+  Token(tipo='NUMERO', valor='15', linea=6)
+  Token(tipo='DELIM', valor=')', linea=6)
+  Token(tipo='DELIM', valor='{', linea=6)
+  Token(tipo='PR_IMPRIMIR', valor='imprimir', linea=7)
+  Token(tipo='DELIM', valor='(', linea=7)
+  Token(tipo='ID', valor='x', linea=7)
+  Token(tipo='DELIM', valor=')', linea=7)
+  Token(tipo='DELIM', valor=';', linea=7)
+  Token(tipo='DELIM', valor='}', linea=8)
+  Token(tipo='ID', valor='x', linea=9)
+  Token(tipo='ASIGNACION', valor='=', linea=9)
+  Token(tipo='ID', valor='x', linea=9)
+  Token(tipo='OP_ARIT', valor='+', linea=9)
+  Token(tipo='NUMERO', valor='2', linea=9)
+  Token(tipo='DELIM', valor=';', linea=9)
+  Token(tipo='DELIM', valor='}', linea=10)
+  Token(tipo='PR_ENTERO', valor='entero', linea=12)
+  Token(tipo='ID', valor='total', linea=12)
+  Token(tipo='ASIGNACION', valor='=', linea=12)
+  Token(tipo='DELIM', valor='(', linea=12)
+  Token(tipo='ID', valor='x', linea=12)
+  Token(tipo='OP_ARIT', valor='-', linea=12)
+  Token(tipo='NUMERO', valor='4', linea=12)
+  Token(tipo='DELIM', valor=')', linea=12)
+  Token(tipo='OP_ARIT', valor='*', linea=12)
+  Token(tipo='NUMERO', valor='3', linea=12)
+  Token(tipo='OP_ARIT', valor='+', linea=12)
+  Token(tipo='OP_ARIT', valor='-', linea=12)
+  Token(tipo='NUMERO', valor='2', linea=12)
+  Token(tipo='DELIM', valor=';', linea=12)
+  Token(tipo='PR_IMPRIMIR', valor='imprimir', linea=13)
+  Token(tipo='DELIM', valor='(', linea=13)
+  Token(tipo='ID', valor='total', linea=13)
+  Token(tipo='DELIM', valor=')', linea=13)
+  Token(tipo='DELIM', valor=';', linea=13)
+  Token(tipo='EOF', valor='', linea=14)
+
+=== FASE 2 - ANALISIS SINTACTICO ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    ├── Declaracion(entero x)
+    │   └── expr: Numero(10)
+    ├── Declaracion(entero limite)
+    │   └── expr: Numero(20)
+    ├── Mientras
+    │   ├── condicion: OpBinaria(<=)
+    │   │   ├── izq: Identificador(x)
+    │   │   └── der: Identificador(limite)
+    │   └── [bloque]
+    │       ├── Si
+    │       │   ├── condicion: OpBinaria(!=)
+    │       │   │   ├── izq: Identificador(x)
+    │       │   │   └── der: Numero(15)
+    │       │   └── [bloque_v]
+    │       │       └── Imprimir
+    │       │           └── expr: Identificador(x)
+    │       └── Asignacion(x)
+    │           └── expr: OpBinaria(+)
+    │               ├── izq: Identificador(x)
+    │               └── der: Numero(2)
+    ├── Declaracion(entero total)
+    │   └── expr: OpBinaria(+)
+    │       ├── izq: OpBinaria(*)
+    │       │   ├── izq: OpBinaria(-)
+    │       │   │   ├── izq: Identificador(x)
+    │       │   │   └── der: Numero(4)
+    │       │   └── der: Numero(3)
+    │       └── der: OpUnaria(-)
+    │           └── expr: Numero(2)
+    └── Imprimir
+        └── expr: Identificador(total)
+
+La fase semántica está pendiente para la siguiente entrega.

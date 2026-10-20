@@ -1,0 +1,23 @@
+$ python main.py pruebas/04_error_falta_punto_coma.txt
+
+=== MI COMPILADOR: LEXER + PARSER ===
+
+CODIGO FUENTE:
+entero x = 10
+x = 20;
+
+
+=== FASE 1 - ANALISIS LEXICO ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=1)
+  Token(tipo='ID', valor='x', linea=1)
+  Token(tipo='ASIGNACION', valor='=', linea=1)
+  Token(tipo='NUMERO', valor='10', linea=1)
+  Token(tipo='ID', valor='x', linea=2)
+  Token(tipo='ASIGNACION', valor='=', linea=2)
+  Token(tipo='NUMERO', valor='20', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='EOF', valor='', linea=3)
+
+=== FASE 2 - ANALISIS SINTACTICO ===
+
+[Error Sintactico] Linea 2: se esperaba ';', se encontro 'x' (tipo: ID).

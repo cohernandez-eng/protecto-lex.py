@@ -1,0 +1,37 @@
+/* Prueba de la extension personal:
+   tipos decimal/cadena/booleano, literales, sino, entonces,
+   operadores logicos y/o/no, leer, parar, continuar,
+   funcion/retornar y llamadas a funcion. */
+
+funcion decimal promedio(decimal a, decimal b) {
+    retornar (a + b) / 2.0;
+}
+
+entero intentos = 0;
+decimal nota = 0.0;
+cadena mensaje = "Ingrese su nota";
+booleano aprobado = falso;
+
+imprimir(mensaje);
+leer nota;
+
+mientras (verdadero) {
+    intentos = intentos + 1;
+    si (nota < 0.0 o nota > 100.0) {
+        imprimir("Nota invalida");
+        continuar;
+    }
+    parar;
+}
+
+// Comentario de linea: el lexer lo descarta
+si (nota >= 61.0 y no (intentos > 3)) entonces {
+    aprobado = verdadero;
+    imprimir("Aprobado");
+} sino si (nota >= 50.0) {
+    imprimir("Recuperacion");
+} sino {
+    imprimir("Reprobado");
+}
+
+imprimir(promedio(nota, 100.0));

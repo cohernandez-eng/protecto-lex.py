@@ -1,0 +1,4 @@
+// Error sintactico con la extension: falta la coma entre parametros.
+funcion entero suma(entero a entero b) {
+    retornar a + b;
+}
