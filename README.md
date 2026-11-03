@@ -171,6 +171,24 @@ Los parámetros `a`, `b` y `n` no aparecen porque solo existen dentro de su func
 
 ## 6. Evidencias
 
+### Capturas en VS Code (Windows)
+
+Tomadas en mi computadora, en [`evidencias/entrega3/capturas_vscode/`](evidencias/entrega3/capturas_vscode/):
+
+**Tabla de símbolos de mi extensión** (`python main.py pruebas/30_sem_extension_valido.txt`):
+
+![Tabla de símbolos de la extensión](evidencias/entrega3/capturas_vscode/01_tabla_simbolos_extension.png)
+
+**Error semántico de mi extensión: `parar` fuera de un ciclo** (las tres fases, `pruebas/33_sem_error_parar_fuera_de_ciclo.txt`):
+
+![Error parar fuera de ciclo](evidencias/entrega3/capturas_vscode/02_error_parar_fuera_de_ciclo.png)
+
+**Pruebas automáticas: 84 ejecutadas**. El único error es la prueba con la variable `y`, explicada en la sección 5:
+
+![Resultado de las 84 pruebas](evidencias/entrega3/capturas_vscode/03_pruebas_84.png)
+
+### Salidas completas de cada caso
+
 En [`evidencias/entrega3/`](evidencias/entrega3/) está la salida de cada caso en `.txt` (completa) y `.png`:
 
 1. `01_valido_tabla_simbolos` y `02_valido_relacionales`: programas válidos y su tabla.
