@@ -1,0 +1,26 @@
+$ python main.py pruebas/08_error_variable_no_declarada.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+x = 10;
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='ID', valor='x', linea=1)
+  Token(tipo='ASIGNACION', valor='=', linea=1)
+  Token(tipo='NUMERO', valor='10', linea=1)
+  Token(tipo='DELIM', valor=';', linea=1)
+  Token(tipo='EOF', valor='', linea=2)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    └── Asignacion(x)
+        └── expr: Numero(10)
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+
+[Error Semantico] Linea 1: se asigna a 'x', que no ha sido declarada.

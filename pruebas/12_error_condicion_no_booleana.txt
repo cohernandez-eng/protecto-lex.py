@@ -1,0 +1,2 @@
+entero x = 1;
+si (x) { imprimir(x); }

@@ -1,0 +1,58 @@
+$ python main.py pruebas/34_sem_error_argumentos_funcion.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+// doble espera un entero y recibe una cadena
+funcion entero doble(entero n) {
+    retornar n * 2;
+}
+entero r = doble("diez");
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_FUNCION', valor='funcion', linea=2)
+  Token(tipo='PR_ENTERO', valor='entero', linea=2)
+  Token(tipo='ID', valor='doble', linea=2)
+  Token(tipo='DELIM', valor='(', linea=2)
+  Token(tipo='PR_ENTERO', valor='entero', linea=2)
+  Token(tipo='ID', valor='n', linea=2)
+  Token(tipo='DELIM', valor=')', linea=2)
+  Token(tipo='DELIM', valor='{', linea=2)
+  Token(tipo='PR_RETORNAR', valor='retornar', linea=3)
+  Token(tipo='ID', valor='n', linea=3)
+  Token(tipo='OP_ARIT', valor='*', linea=3)
+  Token(tipo='NUMERO', valor='2', linea=3)
+  Token(tipo='DELIM', valor=';', linea=3)
+  Token(tipo='DELIM', valor='}', linea=4)
+  Token(tipo='PR_ENTERO', valor='entero', linea=5)
+  Token(tipo='ID', valor='r', linea=5)
+  Token(tipo='ASIGNACION', valor='=', linea=5)
+  Token(tipo='ID', valor='doble', linea=5)
+  Token(tipo='DELIM', valor='(', linea=5)
+  Token(tipo='CADENA_LITERAL', valor='"diez"', linea=5)
+  Token(tipo='DELIM', valor=')', linea=5)
+  Token(tipo='DELIM', valor=';', linea=5)
+  Token(tipo='EOF', valor='', linea=6)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    ├── Funcion(entero doble)
+    │   ├── [parametros]
+    │   │   └── Parametro(entero n)
+    │   └── [cuerpo]
+    │       └── Retornar
+    │           └── expr: OpBinaria(*)
+    │               ├── izq: Identificador(n)
+    │               └── der: Numero(2)
+    └── Declaracion(entero r)
+        └── expr: LlamadaFuncion(doble)
+            └── [argumentos]
+                └── Cadena('diez')
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+
+[Error Semantico] Linea 5: el argumento 1 de 'doble' debe ser 'entero', se recibio 'cadena'.

@@ -1,0 +1,31 @@
+$ python main.py pruebas/11_error_tipo_incompatible.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+entero x = 5 < 10;
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=1)
+  Token(tipo='ID', valor='x', linea=1)
+  Token(tipo='ASIGNACION', valor='=', linea=1)
+  Token(tipo='NUMERO', valor='5', linea=1)
+  Token(tipo='OP_REL', valor='<', linea=1)
+  Token(tipo='NUMERO', valor='10', linea=1)
+  Token(tipo='DELIM', valor=';', linea=1)
+  Token(tipo='EOF', valor='', linea=2)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    └── Declaracion(entero x)
+        └── expr: OpBinaria(<)
+            ├── izq: Numero(5)
+            └── der: Numero(10)
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+
+[Error Semantico] Linea 1: no se puede inicializar 'x' (entero) con un valor de tipo 'booleano'.

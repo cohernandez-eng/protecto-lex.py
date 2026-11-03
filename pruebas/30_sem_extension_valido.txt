@@ -1,0 +1,36 @@
+/* Demostracion semantica de la extension personal: todo es valido */
+funcion decimal promedio(decimal a, decimal b) {
+    retornar (a + b) / 2.0;
+}
+
+funcion entero doble(entero n) {
+    retornar n * 2;
+}
+
+entero intentos = 0;
+decimal nota = 0;              // un entero cabe en un decimal
+cadena nombre = "Ana";
+cadena saludo = "Hola " + nombre;
+booleano aprobado = falso;
+
+leer nota;
+
+mientras (verdadero) {
+    intentos = intentos + 1;
+    si (nota < 0.0 o nota > 100.0) {
+        continuar;
+    }
+    parar;
+}
+
+si (nota >= 61 y no (intentos > 3)) entonces {
+    aprobado = verdadero;
+} sino si (nombre == "Ana") {
+    imprimir(saludo);
+} sino {
+    imprimir("Reprobado");
+}
+
+decimal final = promedio(nota, 100.0);
+entero puntos = doble(intentos);
+imprimir(final);

@@ -1,0 +1,28 @@
+$ python main.py pruebas/31_sem_error_decimal_en_entero.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+// Un decimal NO cabe en un entero: se perderia la parte decimal
+entero total = 2.5;
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=2)
+  Token(tipo='ID', valor='total', linea=2)
+  Token(tipo='ASIGNACION', valor='=', linea=2)
+  Token(tipo='NUMERO_DECIMAL', valor='2.5', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='EOF', valor='', linea=3)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    └── Declaracion(entero total)
+        └── expr: Decimal(2.5)
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+
+[Error Semantico] Linea 2: no se puede inicializar 'total' (entero) con un valor de tipo 'decimal'.

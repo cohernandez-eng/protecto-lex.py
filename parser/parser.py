@@ -51,7 +51,7 @@ from arbol_ast.nodos import (
 )
 
 
-# Tokens que inician una declaración: 'entero' (base) + tipos de expansión.
+# Tokens que inician una declaración: 'entero' BASE + tipos de expansión.
 TIPOS_DATO = ('PR_ENTERO', 'PR_DECIMAL', 'PR_CADENA', 'PR_BOOLEANO')
 
 
@@ -64,7 +64,6 @@ class Parser:
         self.token_actual = tokens[0]
 
     # ------------------------------------------------------------------
-    # Proporcionados por el docente
     #   avanzar():   pasa al siguiente token.
     #   coincidir(): "el token actual DEBE ser este". Si lo es, lo consume
     #                y avanza; si no, lanza el error sintáctico.
@@ -107,9 +106,9 @@ class Parser:
             f"se encontro '{encontrado}' (tipo: {actual.tipo})."
         )
 
-    # ==================================================================
+    # ------------------------------------------------------------------
     # ETAPA A - PARSER BÁSICO
-    # ==================================================================
+    # ------------------------------------------------------------------
     def parsear(self) -> Programa:
         """TODO 1: programa → sentencia* EOF"""
         sentencias = []
@@ -172,8 +171,8 @@ class Parser:
         self.coincidir(';')
         return Asignacion(tok_id.valor, expr, tok_id.linea)
 
-    # ==================================================================
-    # ETAPA B - EXPRESIONES Y PRECEDENCIA (de menor a mayor)
+    # -------------------------------------------------------------------
+    # ETAPA B - EXPRESIONES Y PRECEDENCIA de menor a mayor
     #   o  <  y  <  no  <  OP_REL  <  + -  <  * /  <  unario -  <  factor
     #
     # IDEA CLAVE: cada nivel de precedencia es un método que SOLO llama
@@ -181,11 +180,11 @@ class Parser:
     # "más abajo" en el árbol y se resuelve primero.
     #
     # Se usa un ciclo while en lugar de recursividad por la izquierda:
-    #   MAL:  aritmetica -> aritmetica '+' termino   (bucle infinito)
-    #   BIEN: aritmetica -> termino ('+' termino)*   (while)
+    #   MAL:  aritmetica -> aritmetica '+' termino   bucle infinito
+    #   BIEN: aritmetica -> termino ('+' termino)*   while
     # El while además deja la operación asociativa a la izquierda:
     #   1 - 2 - 3  =  (1 - 2) - 3
-    # ==================================================================
+    # -------------------------------------------------------------------
     def expresion(self) -> NodoAST:
         """TODO 5: punto de entrada de las expresiones.
 
@@ -198,54 +197,54 @@ class Parser:
         """EXT: logica_o → logica_y ('o' logica_y)*"""
         nodo = self.logica_y()
         while self.es('OP_LOGICO_O'):
-            op = self.coincidir('OP_LOGICO_O').valor
-            nodo = OpBinaria(nodo, op, self.logica_y())
+            tok_op = self.coincidir('OP_LOGICO_O')
+            nodo = OpBinaria(nodo, tok_op.valor, self.logica_y(), tok_op.linea)
         return nodo
 
     def logica_y(self) -> NodoAST:
         """EXT: logica_y → negacion ('y' negacion)*"""
         nodo = self.negacion()
         while self.es('OP_LOGICO_Y'):
-            op = self.coincidir('OP_LOGICO_Y').valor
-            nodo = OpBinaria(nodo, op, self.negacion())
+            tok_op = self.coincidir('OP_LOGICO_Y')
+            nodo = OpBinaria(nodo, tok_op.valor, self.negacion(), tok_op.linea)
         return nodo
 
     def negacion(self) -> NodoAST:
         """EXT: negacion → 'no' negacion | comparacion"""
         if self.es('OP_LOGICO_NO'):
-            op = self.coincidir('OP_LOGICO_NO').valor
-            return OpUnaria(op, self.negacion())
+            tok_op = self.coincidir('OP_LOGICO_NO')
+            return OpUnaria(tok_op.valor, self.negacion(), tok_op.linea)
         return self.comparacion()
 
     def comparacion(self) -> NodoAST:
         """comparacion → aritmetica (OP_REL aritmetica)*   (regla base del TODO 5)"""
         nodo = self.aritmetica()
         while self.es('OP_REL'):
-            op = self.coincidir('OP_REL').valor
-            nodo = OpBinaria(nodo, op, self.aritmetica())
+            tok_op = self.coincidir('OP_REL')
+            nodo = OpBinaria(nodo, tok_op.valor, self.aritmetica(), tok_op.linea)
         return nodo
 
     def aritmetica(self) -> NodoAST:
         """TODO 6: aritmetica → termino (('+' | '-') termino)*  (asociativa a la izquierda)"""
         nodo = self.termino()
         while self.es('+', '-'):
-            op = self.coincidir('OP_ARIT').valor
-            nodo = OpBinaria(nodo, op, self.termino())
+            tok_op = self.coincidir('OP_ARIT')
+            nodo = OpBinaria(nodo, tok_op.valor, self.termino(), tok_op.linea)
         return nodo
 
     def termino(self) -> NodoAST:
         """TODO 7: termino → unario (('*' | '/') unario)*"""
         nodo = self.unario()
         while self.es('*', '/'):
-            op = self.coincidir('OP_ARIT').valor
-            nodo = OpBinaria(nodo, op, self.unario())
+            tok_op = self.coincidir('OP_ARIT')
+            nodo = OpBinaria(nodo, tok_op.valor, self.unario(), tok_op.linea)
         return nodo
 
     def unario(self) -> NodoAST:
         """EXT: unario → '-' unario | factor   (permite -5 o -(a + b))"""
         if self.es('-'):
-            self.coincidir('-')
-            return OpUnaria('-', self.unario())
+            tok_op = self.coincidir('-')
+            return OpUnaria('-', self.unario(), tok_op.linea)
         return self.factor()
 
     def factor(self) -> NodoAST:
@@ -281,21 +280,21 @@ class Parser:
 
         self.error('se esperaba un numero, identificador, literal o (')
 
-    # ==================================================================
+    # ------------------------------------------------------------------
     # ETAPA C - CONTROL DE FLUJO
-    # ==================================================================
+    # -------------------------------------------------------------------
     def sentencia_imprimir(self) -> Imprimir:
         """TODO 9: 'imprimir' '(' expresion ')' ';'"""
-        self.coincidir('PR_IMPRIMIR')
+        tok = self.coincidir('PR_IMPRIMIR')
         self.coincidir('(')
         expr = self.expresion()
         self.coincidir(')')
         self.coincidir(';')
-        return Imprimir(expr)
+        return Imprimir(expr, tok.linea)
 
     def sentencia_si(self) -> Si:
         """TODO 10: 'si' '(' expresion ')' ['entonces'] bloque ['sino' (si | bloque)]"""
-        self.coincidir('PR_SI')
+        tok = self.coincidir('PR_SI')
         self.coincidir('(')
         condicion = self.expresion()
         self.coincidir(')')
@@ -310,15 +309,15 @@ class Parser:
                 bloque_f = [self.sentencia_si()]
             else:
                 bloque_f = self.bloque()
-        return Si(condicion, bloque_v, bloque_f)
+        return Si(condicion, bloque_v, bloque_f, tok.linea)
 
     def sentencia_mientras(self) -> Mientras:
         """TODO 11: 'mientras' '(' expresion ')' bloque"""
-        self.coincidir('PR_MIENTRAS')
+        tok = self.coincidir('PR_MIENTRAS')
         self.coincidir('(')
         condicion = self.expresion()
         self.coincidir(')')
-        return Mientras(condicion, self.bloque())
+        return Mientras(condicion, self.bloque(), tok.linea)
 
     def bloque(self) -> List[NodoAST]:
         """TODO 12: '{' sentencia* '}' — detecta EOF sin cerrar la llave."""
@@ -335,13 +334,13 @@ class Parser:
         self.coincidir('}')
         return sentencias
 
-    # ==================================================================
-    # ETAPA D - EXTENSIÓN PERSONAL (tokens adicionales del lexer)
+    # ----------------------------------------------------------------
+    # ETAPA D - EXTENSIÓN PERSONAL tokens adicionales del lexer
     # Que el lexer reconozca un token no significa que el parser sepa
-    # usarlo: cada palabra nueva necesita su regla aquí y su nodo en
-    # arbol_ast/nodos.py. (Los comentarios son la excepción: el lexer los
-    # descarta y nunca llegan a esta fase.)
-    # ==================================================================
+    # usarlo cada palabra nueva necesita su regla aquí y su nodo en
+    # arbol_ast/nodos.py. Los comentarios son la excepción el lexer los
+    # descarta y nunca llegan a esta fase.
+    # ------------------------------------------------------------------------
     def sentencia_leer(self) -> Leer:
         """leer → 'leer' ID ';'"""
         tok = self.coincidir('PR_LEER')

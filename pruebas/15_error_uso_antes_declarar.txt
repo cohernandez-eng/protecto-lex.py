@@ -1,0 +1,1 @@
+entero x = x + 1;

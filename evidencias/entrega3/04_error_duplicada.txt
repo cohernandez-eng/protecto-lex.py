@@ -1,0 +1,35 @@
+$ python main.py pruebas/09_error_variable_duplicada.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+entero x = 10;
+entero x = 20;
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=1)
+  Token(tipo='ID', valor='x', linea=1)
+  Token(tipo='ASIGNACION', valor='=', linea=1)
+  Token(tipo='NUMERO', valor='10', linea=1)
+  Token(tipo='DELIM', valor=';', linea=1)
+  Token(tipo='PR_ENTERO', valor='entero', linea=2)
+  Token(tipo='ID', valor='x', linea=2)
+  Token(tipo='ASIGNACION', valor='=', linea=2)
+  Token(tipo='NUMERO', valor='20', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='EOF', valor='', linea=3)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    ├── Declaracion(entero x)
+    │   └── expr: Numero(10)
+    └── Declaracion(entero x)
+        └── expr: Numero(20)
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+
+[Error Semantico] Linea 2: la variable 'x' ya fue declarada.

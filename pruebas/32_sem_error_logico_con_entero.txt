@@ -1,0 +1,5 @@
+// 'y' exige dos booleanos
+entero x = 5;
+si (x y verdadero) {
+    imprimir(x);
+}

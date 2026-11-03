@@ -1,0 +1,4 @@
+// La funcion dice que retorna entero, pero retorna una cadena
+funcion entero edad() {
+    retornar "veinte";
+}

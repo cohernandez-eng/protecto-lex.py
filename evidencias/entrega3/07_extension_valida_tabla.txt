@@ -1,0 +1,314 @@
+$ python main.py pruebas/30_sem_extension_valido.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+/* Demostracion semantica de la extension personal: todo es valido */
+funcion decimal promedio(decimal a, decimal b) {
+    retornar (a + b) / 2.0;
+}
+
+funcion entero doble(entero n) {
+    retornar n * 2;
+}
+
+entero intentos = 0;
+decimal nota = 0;              // un entero cabe en un decimal
+cadena nombre = "Ana";
+cadena saludo = "Hola " + nombre;
+booleano aprobado = falso;
+
+leer nota;
+
+mientras (verdadero) {
+    intentos = intentos + 1;
+    si (nota < 0.0 o nota > 100.0) {
+        continuar;
+    }
+    parar;
+}
+
+si (nota >= 61 y no (intentos > 3)) entonces {
+    aprobado = verdadero;
+} sino si (nombre == "Ana") {
+    imprimir(saludo);
+} sino {
+    imprimir("Reprobado");
+}
+
+decimal final = promedio(nota, 100.0);
+entero puntos = doble(intentos);
+imprimir(final);
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_FUNCION', valor='funcion', linea=2)
+  Token(tipo='PR_DECIMAL', valor='decimal', linea=2)
+  Token(tipo='ID', valor='promedio', linea=2)
+  Token(tipo='DELIM', valor='(', linea=2)
+  Token(tipo='PR_DECIMAL', valor='decimal', linea=2)
+  Token(tipo='ID', valor='a', linea=2)
+  Token(tipo='DELIM', valor=',', linea=2)
+  Token(tipo='PR_DECIMAL', valor='decimal', linea=2)
+  Token(tipo='ID', valor='b', linea=2)
+  Token(tipo='DELIM', valor=')', linea=2)
+  Token(tipo='DELIM', valor='{', linea=2)
+  Token(tipo='PR_RETORNAR', valor='retornar', linea=3)
+  Token(tipo='DELIM', valor='(', linea=3)
+  Token(tipo='ID', valor='a', linea=3)
+  Token(tipo='OP_ARIT', valor='+', linea=3)
+  Token(tipo='ID', valor='b', linea=3)
+  Token(tipo='DELIM', valor=')', linea=3)
+  Token(tipo='OP_ARIT', valor='/', linea=3)
+  Token(tipo='NUMERO_DECIMAL', valor='2.0', linea=3)
+  Token(tipo='DELIM', valor=';', linea=3)
+  Token(tipo='DELIM', valor='}', linea=4)
+  Token(tipo='PR_FUNCION', valor='funcion', linea=6)
+  Token(tipo='PR_ENTERO', valor='entero', linea=6)
+  Token(tipo='ID', valor='doble', linea=6)
+  Token(tipo='DELIM', valor='(', linea=6)
+  Token(tipo='PR_ENTERO', valor='entero', linea=6)
+  Token(tipo='ID', valor='n', linea=6)
+  Token(tipo='DELIM', valor=')', linea=6)
+  Token(tipo='DELIM', valor='{', linea=6)
+  Token(tipo='PR_RETORNAR', valor='retornar', linea=7)
+  Token(tipo='ID', valor='n', linea=7)
+  Token(tipo='OP_ARIT', valor='*', linea=7)
+  Token(tipo='NUMERO', valor='2', linea=7)
+  Token(tipo='DELIM', valor=';', linea=7)
+  Token(tipo='DELIM', valor='}', linea=8)
+  Token(tipo='PR_ENTERO', valor='entero', linea=10)
+  Token(tipo='ID', valor='intentos', linea=10)
+  Token(tipo='ASIGNACION', valor='=', linea=10)
+  Token(tipo='NUMERO', valor='0', linea=10)
+  Token(tipo='DELIM', valor=';', linea=10)
+  Token(tipo='PR_DECIMAL', valor='decimal', linea=11)
+  Token(tipo='ID', valor='nota', linea=11)
+  Token(tipo='ASIGNACION', valor='=', linea=11)
+  Token(tipo='NUMERO', valor='0', linea=11)
+  Token(tipo='DELIM', valor=';', linea=11)
+  Token(tipo='PR_CADENA', valor='cadena', linea=12)
+  Token(tipo='ID', valor='nombre', linea=12)
+  Token(tipo='ASIGNACION', valor='=', linea=12)
+  Token(tipo='CADENA_LITERAL', valor='"Ana"', linea=12)
+  Token(tipo='DELIM', valor=';', linea=12)
+  Token(tipo='PR_CADENA', valor='cadena', linea=13)
+  Token(tipo='ID', valor='saludo', linea=13)
+  Token(tipo='ASIGNACION', valor='=', linea=13)
+  Token(tipo='CADENA_LITERAL', valor='"Hola "', linea=13)
+  Token(tipo='OP_ARIT', valor='+', linea=13)
+  Token(tipo='ID', valor='nombre', linea=13)
+  Token(tipo='DELIM', valor=';', linea=13)
+  Token(tipo='PR_BOOLEANO', valor='booleano', linea=14)
+  Token(tipo='ID', valor='aprobado', linea=14)
+  Token(tipo='ASIGNACION', valor='=', linea=14)
+  Token(tipo='BOOLEANO', valor='falso', linea=14)
+  Token(tipo='DELIM', valor=';', linea=14)
+  Token(tipo='PR_LEER', valor='leer', linea=16)
+  Token(tipo='ID', valor='nota', linea=16)
+  Token(tipo='DELIM', valor=';', linea=16)
+  Token(tipo='PR_MIENTRAS', valor='mientras', linea=18)
+  Token(tipo='DELIM', valor='(', linea=18)
+  Token(tipo='BOOLEANO', valor='verdadero', linea=18)
+  Token(tipo='DELIM', valor=')', linea=18)
+  Token(tipo='DELIM', valor='{', linea=18)
+  Token(tipo='ID', valor='intentos', linea=19)
+  Token(tipo='ASIGNACION', valor='=', linea=19)
+  Token(tipo='ID', valor='intentos', linea=19)
+  Token(tipo='OP_ARIT', valor='+', linea=19)
+  Token(tipo='NUMERO', valor='1', linea=19)
+  Token(tipo='DELIM', valor=';', linea=19)
+  Token(tipo='PR_SI', valor='si', linea=20)
+  Token(tipo='DELIM', valor='(', linea=20)
+  Token(tipo='ID', valor='nota', linea=20)
+  Token(tipo='OP_REL', valor='<', linea=20)
+  Token(tipo='NUMERO_DECIMAL', valor='0.0', linea=20)
+  Token(tipo='OP_LOGICO_O', valor='o', linea=20)
+  Token(tipo='ID', valor='nota', linea=20)
+  Token(tipo='OP_REL', valor='>', linea=20)
+  Token(tipo='NUMERO_DECIMAL', valor='100.0', linea=20)
+  Token(tipo='DELIM', valor=')', linea=20)
+  Token(tipo='DELIM', valor='{', linea=20)
+  Token(tipo='PR_CONTINUAR', valor='continuar', linea=21)
+  Token(tipo='DELIM', valor=';', linea=21)
+  Token(tipo='DELIM', valor='}', linea=22)
+  Token(tipo='PR_PARAR', valor='parar', linea=23)
+  Token(tipo='DELIM', valor=';', linea=23)
+  Token(tipo='DELIM', valor='}', linea=24)
+  Token(tipo='PR_SI', valor='si', linea=26)
+  Token(tipo='DELIM', valor='(', linea=26)
+  Token(tipo='ID', valor='nota', linea=26)
+  Token(tipo='OP_REL', valor='>=', linea=26)
+  Token(tipo='NUMERO', valor='61', linea=26)
+  Token(tipo='OP_LOGICO_Y', valor='y', linea=26)
+  Token(tipo='OP_LOGICO_NO', valor='no', linea=26)
+  Token(tipo='DELIM', valor='(', linea=26)
+  Token(tipo='ID', valor='intentos', linea=26)
+  Token(tipo='OP_REL', valor='>', linea=26)
+  Token(tipo='NUMERO', valor='3', linea=26)
+  Token(tipo='DELIM', valor=')', linea=26)
+  Token(tipo='DELIM', valor=')', linea=26)
+  Token(tipo='PR_ENTONCES', valor='entonces', linea=26)
+  Token(tipo='DELIM', valor='{', linea=26)
+  Token(tipo='ID', valor='aprobado', linea=27)
+  Token(tipo='ASIGNACION', valor='=', linea=27)
+  Token(tipo='BOOLEANO', valor='verdadero', linea=27)
+  Token(tipo='DELIM', valor=';', linea=27)
+  Token(tipo='DELIM', valor='}', linea=28)
+  Token(tipo='PR_SINO', valor='sino', linea=28)
+  Token(tipo='PR_SI', valor='si', linea=28)
+  Token(tipo='DELIM', valor='(', linea=28)
+  Token(tipo='ID', valor='nombre', linea=28)
+  Token(tipo='OP_REL', valor='==', linea=28)
+  Token(tipo='CADENA_LITERAL', valor='"Ana"', linea=28)
+  Token(tipo='DELIM', valor=')', linea=28)
+  Token(tipo='DELIM', valor='{', linea=28)
+  Token(tipo='PR_IMPRIMIR', valor='imprimir', linea=29)
+  Token(tipo='DELIM', valor='(', linea=29)
+  Token(tipo='ID', valor='saludo', linea=29)
+  Token(tipo='DELIM', valor=')', linea=29)
+  Token(tipo='DELIM', valor=';', linea=29)
+  Token(tipo='DELIM', valor='}', linea=30)
+  Token(tipo='PR_SINO', valor='sino', linea=30)
+  Token(tipo='DELIM', valor='{', linea=30)
+  Token(tipo='PR_IMPRIMIR', valor='imprimir', linea=31)
+  Token(tipo='DELIM', valor='(', linea=31)
+  Token(tipo='CADENA_LITERAL', valor='"Reprobado"', linea=31)
+  Token(tipo='DELIM', valor=')', linea=31)
+  Token(tipo='DELIM', valor=';', linea=31)
+  Token(tipo='DELIM', valor='}', linea=32)
+  Token(tipo='PR_DECIMAL', valor='decimal', linea=34)
+  Token(tipo='ID', valor='final', linea=34)
+  Token(tipo='ASIGNACION', valor='=', linea=34)
+  Token(tipo='ID', valor='promedio', linea=34)
+  Token(tipo='DELIM', valor='(', linea=34)
+  Token(tipo='ID', valor='nota', linea=34)
+  Token(tipo='DELIM', valor=',', linea=34)
+  Token(tipo='NUMERO_DECIMAL', valor='100.0', linea=34)
+  Token(tipo='DELIM', valor=')', linea=34)
+  Token(tipo='DELIM', valor=';', linea=34)
+  Token(tipo='PR_ENTERO', valor='entero', linea=35)
+  Token(tipo='ID', valor='puntos', linea=35)
+  Token(tipo='ASIGNACION', valor='=', linea=35)
+  Token(tipo='ID', valor='doble', linea=35)
+  Token(tipo='DELIM', valor='(', linea=35)
+  Token(tipo='ID', valor='intentos', linea=35)
+  Token(tipo='DELIM', valor=')', linea=35)
+  Token(tipo='DELIM', valor=';', linea=35)
+  Token(tipo='PR_IMPRIMIR', valor='imprimir', linea=36)
+  Token(tipo='DELIM', valor='(', linea=36)
+  Token(tipo='ID', valor='final', linea=36)
+  Token(tipo='DELIM', valor=')', linea=36)
+  Token(tipo='DELIM', valor=';', linea=36)
+  Token(tipo='EOF', valor='', linea=37)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    ├── Funcion(decimal promedio)
+    │   ├── [parametros]
+    │   │   ├── Parametro(decimal a)
+    │   │   └── Parametro(decimal b)
+    │   └── [cuerpo]
+    │       └── Retornar
+    │           └── expr: OpBinaria(/)
+    │               ├── izq: OpBinaria(+)
+    │               │   ├── izq: Identificador(a)
+    │               │   └── der: Identificador(b)
+    │               └── der: Decimal(2.0)
+    ├── Funcion(entero doble)
+    │   ├── [parametros]
+    │   │   └── Parametro(entero n)
+    │   └── [cuerpo]
+    │       └── Retornar
+    │           └── expr: OpBinaria(*)
+    │               ├── izq: Identificador(n)
+    │               └── der: Numero(2)
+    ├── Declaracion(entero intentos)
+    │   └── expr: Numero(0)
+    ├── Declaracion(decimal nota)
+    │   └── expr: Numero(0)
+    ├── Declaracion(cadena nombre)
+    │   └── expr: Cadena('Ana')
+    ├── Declaracion(cadena saludo)
+    │   └── expr: OpBinaria(+)
+    │       ├── izq: Cadena('Hola ')
+    │       └── der: Identificador(nombre)
+    ├── Declaracion(booleano aprobado)
+    │   └── expr: Booleano(False)
+    ├── Leer(nota)
+    ├── Mientras
+    │   ├── condicion: Booleano(True)
+    │   └── [bloque]
+    │       ├── Asignacion(intentos)
+    │       │   └── expr: OpBinaria(+)
+    │       │       ├── izq: Identificador(intentos)
+    │       │       └── der: Numero(1)
+    │       ├── Si
+    │       │   ├── condicion: OpBinaria(o)
+    │       │   │   ├── izq: OpBinaria(<)
+    │       │   │   │   ├── izq: Identificador(nota)
+    │       │   │   │   └── der: Decimal(0.0)
+    │       │   │   └── der: OpBinaria(>)
+    │       │   │       ├── izq: Identificador(nota)
+    │       │   │       └── der: Decimal(100.0)
+    │       │   └── [bloque_v]
+    │       │       └── Continuar
+    │       └── Parar
+    ├── Si
+    │   ├── condicion: OpBinaria(y)
+    │   │   ├── izq: OpBinaria(>=)
+    │   │   │   ├── izq: Identificador(nota)
+    │   │   │   └── der: Numero(61)
+    │   │   └── der: OpUnaria(no)
+    │   │       └── expr: OpBinaria(>)
+    │   │           ├── izq: Identificador(intentos)
+    │   │           └── der: Numero(3)
+    │   ├── [bloque_v]
+    │   │   └── Asignacion(aprobado)
+    │   │       └── expr: Booleano(True)
+    │   └── [bloque_f]
+    │       └── Si
+    │           ├── condicion: OpBinaria(==)
+    │           │   ├── izq: Identificador(nombre)
+    │           │   └── der: Cadena('Ana')
+    │           ├── [bloque_v]
+    │           │   └── Imprimir
+    │           │       └── expr: Identificador(saludo)
+    │           └── [bloque_f]
+    │               └── Imprimir
+    │                   └── expr: Cadena('Reprobado')
+    ├── Declaracion(decimal final)
+    │   └── expr: LlamadaFuncion(promedio)
+    │       └── [argumentos]
+    │           ├── Identificador(nota)
+    │           └── Decimal(100.0)
+    ├── Declaracion(entero puntos)
+    │   └── expr: LlamadaFuncion(doble)
+    │       └── [argumentos]
+    │           └── Identificador(intentos)
+    └── Imprimir
+        └── expr: Identificador(final)
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+Analisis semantico correcto.
+Tabla de simbolos: {'intentos': 'entero', 'nota': 'decimal', 'nombre': 'cadena', 'saludo': 'cadena', 'aprobado': 'booleano', 'final': 'decimal', 'puntos': 'entero'}
+Tabla de funciones: {'promedio': ('decimal', ['decimal', 'decimal']), 'doble': ('entero', ['entero'])}
+
+  +----------+-----------+----------------------------+
+  | Nombre   | Categoria | Tipo                       |
+  +----------+-----------+----------------------------+
+  | intentos | variable  | entero                     |
+  | nota     | variable  | decimal                    |
+  | nombre   | variable  | cadena                     |
+  | saludo   | variable  | cadena                     |
+  | aprobado | variable  | booleano                   |
+  | final    | variable  | decimal                    |
+  | puntos   | variable  | entero                     |
+  | promedio | funcion   | decimal (decimal, decimal) |
+  | doble    | funcion   | entero (entero)            |
+  +----------+-----------+----------------------------+
+
+Las tres fases finalizaron correctamente.

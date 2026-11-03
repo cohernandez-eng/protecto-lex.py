@@ -1,0 +1,56 @@
+$ python main.py pruebas/13_valido_relacionales.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+entero x = 5;
+si (x < 10) { imprimir(x); }
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=1)
+  Token(tipo='ID', valor='x', linea=1)
+  Token(tipo='ASIGNACION', valor='=', linea=1)
+  Token(tipo='NUMERO', valor='5', linea=1)
+  Token(tipo='DELIM', valor=';', linea=1)
+  Token(tipo='PR_SI', valor='si', linea=2)
+  Token(tipo='DELIM', valor='(', linea=2)
+  Token(tipo='ID', valor='x', linea=2)
+  Token(tipo='OP_REL', valor='<', linea=2)
+  Token(tipo='NUMERO', valor='10', linea=2)
+  Token(tipo='DELIM', valor=')', linea=2)
+  Token(tipo='DELIM', valor='{', linea=2)
+  Token(tipo='PR_IMPRIMIR', valor='imprimir', linea=2)
+  Token(tipo='DELIM', valor='(', linea=2)
+  Token(tipo='ID', valor='x', linea=2)
+  Token(tipo='DELIM', valor=')', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='DELIM', valor='}', linea=2)
+  Token(tipo='EOF', valor='', linea=3)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    ├── Declaracion(entero x)
+    │   └── expr: Numero(5)
+    └── Si
+        ├── condicion: OpBinaria(<)
+        │   ├── izq: Identificador(x)
+        │   └── der: Numero(10)
+        └── [bloque_v]
+            └── Imprimir
+                └── expr: Identificador(x)
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+Analisis semantico correcto.
+Tabla de simbolos: {'x': 'entero'}
+
+  +--------+-----------+--------+
+  | Nombre | Categoria | Tipo   |
+  +--------+-----------+--------+
+  | x      | variable  | entero |
+  +--------+-----------+--------+
+
+Las tres fases finalizaron correctamente.

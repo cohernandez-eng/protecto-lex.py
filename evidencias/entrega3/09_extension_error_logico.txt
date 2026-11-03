@@ -1,0 +1,51 @@
+$ python main.py pruebas/32_sem_error_logico_con_entero.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+// 'y' exige dos booleanos
+entero x = 5;
+si (x y verdadero) {
+    imprimir(x);
+}
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=2)
+  Token(tipo='ID', valor='x', linea=2)
+  Token(tipo='ASIGNACION', valor='=', linea=2)
+  Token(tipo='NUMERO', valor='5', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='PR_SI', valor='si', linea=3)
+  Token(tipo='DELIM', valor='(', linea=3)
+  Token(tipo='ID', valor='x', linea=3)
+  Token(tipo='OP_LOGICO_Y', valor='y', linea=3)
+  Token(tipo='BOOLEANO', valor='verdadero', linea=3)
+  Token(tipo='DELIM', valor=')', linea=3)
+  Token(tipo='DELIM', valor='{', linea=3)
+  Token(tipo='PR_IMPRIMIR', valor='imprimir', linea=4)
+  Token(tipo='DELIM', valor='(', linea=4)
+  Token(tipo='ID', valor='x', linea=4)
+  Token(tipo='DELIM', valor=')', linea=4)
+  Token(tipo='DELIM', valor=';', linea=4)
+  Token(tipo='DELIM', valor='}', linea=5)
+  Token(tipo='EOF', valor='', linea=6)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    ├── Declaracion(entero x)
+    │   └── expr: Numero(5)
+    └── Si
+        ├── condicion: OpBinaria(y)
+        │   ├── izq: Identificador(x)
+        │   └── der: Booleano(True)
+        └── [bloque_v]
+            └── Imprimir
+                └── expr: Identificador(x)
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+
+[Error Semantico] Linea 3: el operador logico 'y' exige dos booleanos, se recibieron 'entero' y 'booleano'.

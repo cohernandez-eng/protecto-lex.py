@@ -1,0 +1,5 @@
+// 'parar' solo tiene sentido dentro de un mientras
+entero x = 1;
+si (x > 0) {
+    parar;
+}

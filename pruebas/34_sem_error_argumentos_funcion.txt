@@ -1,0 +1,5 @@
+// doble espera un entero y recibe una cadena
+funcion entero doble(entero n) {
+    retornar n * 2;
+}
+entero r = doble("diez");

@@ -1,0 +1,2 @@
+// Un decimal NO cabe en un entero: se perderia la parte decimal
+entero total = 2.5;

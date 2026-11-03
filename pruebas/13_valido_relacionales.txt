@@ -1,0 +1,2 @@
+entero x = 5;
+si (x < 10) { imprimir(x); }

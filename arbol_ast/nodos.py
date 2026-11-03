@@ -59,11 +59,17 @@ class OpBinaria(NodoAST):
     izq: NodoAST
     op: str
     der: NodoAST
+    # Línea del código fuente, para los mensajes de error semántico (Entrega 3).
+    # compare=False: no cuenta al comparar nodos, así las pruebas no cambian.
+    linea: int = field(default=0, compare=False)
 
 
 @dataclass
 class Imprimir(NodoAST):
     expr: NodoAST
+    # Línea del código fuente, para los mensajes de error semántico (Entrega 3).
+    # compare=False: no cuenta al comparar nodos, así las pruebas no cambian.
+    linea: int = field(default=0, compare=False)
 
 
 @dataclass
@@ -73,12 +79,18 @@ class Si(NodoAST):
     # Extensión PR_SINO: rama falsa. Puede ser una lista de sentencias
     # (sino { ... }) o contener un único Si (sino si ( ... ) { ... }).
     bloque_f: Optional[List[NodoAST]] = None
+    # Línea del código fuente, para los mensajes de error semántico (Entrega 3).
+    # compare=False: no cuenta al comparar nodos, así las pruebas no cambian.
+    linea: int = field(default=0, compare=False)
 
 
 @dataclass
 class Mientras(NodoAST):
     condicion: NodoAST
     bloque: List[NodoAST]
+    # Línea del código fuente, para los mensajes de error semántico (Entrega 3).
+    # compare=False: no cuenta al comparar nodos, así las pruebas no cambian.
+    linea: int = field(default=0, compare=False)
 
 
 # ======================================================================
@@ -108,6 +120,9 @@ class OpUnaria(NodoAST):
     """Operadores de un solo operando: 'no' lógico y '-' negativo."""
     op: str
     expr: NodoAST
+    # Línea del código fuente, para los mensajes de error semántico (Entrega 3).
+    # compare=False: no cuenta al comparar nodos, así las pruebas no cambian.
+    linea: int = field(default=0, compare=False)
 
 
 @dataclass

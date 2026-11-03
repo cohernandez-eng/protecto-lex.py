@@ -1,0 +1,52 @@
+$ python -m unittest pruebas.test_integracion pruebas.test_extension pruebas.test_semantica pruebas.test_semantica_extension
+
+....................................E...............................................
+======================================================================
+ERROR: test_variable_inexistente_en_expresion (pruebas.test_semantica.TestAsignaciones.test_variable_inexistente_en_expresion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/claude/mio/pruebas/test_semantica.py", line 46, in test_variable_inexistente_en_expresion
+    analizar('entero x = y + 5;')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/mio/pruebas/test_semantica.py", line 12, in analizar
+    arbol = Parser(Lexer(codigo).analizar()).parsear()
+  File "/home/claude/mio/parser/parser.py", line 117, in parsear
+    sentencias.append(self.sentencia())
+                      ~~~~~~~~~~~~~~^^
+  File "/home/claude/mio/parser/parser.py", line 126, in sentencia
+    return self.declaracion()
+           ~~~~~~~~~~~~~~~~^^
+  File "/home/claude/mio/parser/parser.py", line 163, in declaracion
+    expr = self.expresion()
+  File "/home/claude/mio/parser/parser.py", line 195, in expresion
+    return self.logica_o()
+           ~~~~~~~~~~~~~^^
+  File "/home/claude/mio/parser/parser.py", line 199, in logica_o
+    nodo = self.logica_y()
+  File "/home/claude/mio/parser/parser.py", line 207, in logica_y
+    nodo = self.negacion()
+  File "/home/claude/mio/parser/parser.py", line 218, in negacion
+    return self.comparacion()
+           ~~~~~~~~~~~~~~~~^^
+  File "/home/claude/mio/parser/parser.py", line 222, in comparacion
+    nodo = self.aritmetica()
+  File "/home/claude/mio/parser/parser.py", line 230, in aritmetica
+    nodo = self.termino()
+  File "/home/claude/mio/parser/parser.py", line 238, in termino
+    nodo = self.unario()
+  File "/home/claude/mio/parser/parser.py", line 249, in unario
+    return self.factor()
+           ~~~~~~~~~~~^^
+  File "/home/claude/mio/parser/parser.py", line 282, in factor
+    self.error('se esperaba un numero, identificador, literal o (')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/mio/parser/parser.py", line 105, in error
+    raise SyntaxError(
+    ...<2 lines>...
+    )
+SyntaxError: [Error Sintactico] Linea 1: se esperaba un numero, identificador, literal o (, se encontro 'y' (tipo: OP_LOGICO_Y).
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.010s
+
+FAILED (errors=1)

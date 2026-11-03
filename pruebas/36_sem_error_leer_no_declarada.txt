@@ -1,0 +1,2 @@
+// leer necesita una variable declarada
+leer telefono;

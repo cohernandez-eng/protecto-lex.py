@@ -1,0 +1,3 @@
+// Igual que la prueba 10 del docente, pero con 'z' en lugar de 'y'.
+// En mi lenguaje 'y' es palabra reservada (operador logico de mi extension).
+entero x = z + 5;

@@ -1,0 +1,2 @@
+// 'no' exige un booleano
+booleano b = no 5;

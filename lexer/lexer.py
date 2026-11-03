@@ -1,7 +1,7 @@
 """
-==========================================================================
+-------------------------------------------------------------------------------
  FASE 1 DEL COMPILADOR: ANALIZADOR LÉXICO (LEXER)
-==========================================================================
+------------------------------------------------------------------------------
  Autor: Celso Otoniel Hernández - Carné 2400455
  Curso: Compiladores - USPG
 
@@ -26,7 +26,7 @@
    - Entrega 1: PR_SI, PR_MIENTRAS, PR_IMPRIMIR y OP_REL.
    - Entrega 2: los 18 tokens de mi catálogo de expansión
      (tokens_catalogo.pdf), marcados abajo con [EXTENSIÓN].
-==========================================================================
+-------------------------------------------------------------------------
 """
 import re
 from typing import List

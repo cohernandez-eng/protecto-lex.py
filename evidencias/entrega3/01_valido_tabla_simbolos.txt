@@ -1,0 +1,42 @@
+$ python main.py pruebas/01_basico_valido.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+entero edad = 20;
+edad = 21;
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=1)
+  Token(tipo='ID', valor='edad', linea=1)
+  Token(tipo='ASIGNACION', valor='=', linea=1)
+  Token(tipo='NUMERO', valor='20', linea=1)
+  Token(tipo='DELIM', valor=';', linea=1)
+  Token(tipo='ID', valor='edad', linea=2)
+  Token(tipo='ASIGNACION', valor='=', linea=2)
+  Token(tipo='NUMERO', valor='21', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='EOF', valor='', linea=3)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    ├── Declaracion(entero edad)
+    │   └── expr: Numero(20)
+    └── Asignacion(edad)
+        └── expr: Numero(21)
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+Analisis semantico correcto.
+Tabla de simbolos: {'edad': 'entero'}
+
+  +--------+-----------+--------+
+  | Nombre | Categoria | Tipo   |
+  +--------+-----------+--------+
+  | edad   | variable  | entero |
+  +--------+-----------+--------+
+
+Las tres fases finalizaron correctamente.

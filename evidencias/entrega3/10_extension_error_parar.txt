@@ -1,0 +1,47 @@
+$ python main.py pruebas/33_sem_error_parar_fuera_de_ciclo.txt
+
+=== MI COMPILADOR: LEXER + PARSER + SEMANTICA ===
+
+CODIGO FUENTE:
+// 'parar' solo tiene sentido dentro de un mientras
+entero x = 1;
+si (x > 0) {
+    parar;
+}
+
+
+=== FASE 1 - ANALISIS LEXICO (lexer/lexer.py) ===
+  Token(tipo='PR_ENTERO', valor='entero', linea=2)
+  Token(tipo='ID', valor='x', linea=2)
+  Token(tipo='ASIGNACION', valor='=', linea=2)
+  Token(tipo='NUMERO', valor='1', linea=2)
+  Token(tipo='DELIM', valor=';', linea=2)
+  Token(tipo='PR_SI', valor='si', linea=3)
+  Token(tipo='DELIM', valor='(', linea=3)
+  Token(tipo='ID', valor='x', linea=3)
+  Token(tipo='OP_REL', valor='>', linea=3)
+  Token(tipo='NUMERO', valor='0', linea=3)
+  Token(tipo='DELIM', valor=')', linea=3)
+  Token(tipo='DELIM', valor='{', linea=3)
+  Token(tipo='PR_PARAR', valor='parar', linea=4)
+  Token(tipo='DELIM', valor=';', linea=4)
+  Token(tipo='DELIM', valor='}', linea=5)
+  Token(tipo='EOF', valor='', linea=6)
+
+=== FASE 2 - ANALISIS SINTACTICO (parser/parser.py) ===
+Analisis sintactico correcto. AST generado:
+
+Programa
+└── [sentencias]
+    ├── Declaracion(entero x)
+    │   └── expr: Numero(1)
+    └── Si
+        ├── condicion: OpBinaria(>)
+        │   ├── izq: Identificador(x)
+        │   └── der: Numero(0)
+        └── [bloque_v]
+            └── Parar
+
+=== FASE 3 - ANALISIS SEMANTICO (semantic/analizador.py) ===
+
+[Error Semantico] Linea 4: 'parar' solo puede usarse dentro de un ciclo 'mientras'.

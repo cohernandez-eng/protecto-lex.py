@@ -1,14 +1,12 @@
-PROYECTO INCREMENTAL: INTEGRACIÓN LEXER + PARSER
+TAREA: ANÁLISIS SEMÁNTICO DEL COMPILADOR
 
-Objetivo: integrar el analizador léxico de la entrega anterior con un analizador sintáctico que reconozca sentencias válidas y genere un AST.
+Objetivo: continuar el compilador incremental integrando Lexer, Parser, AST y análisis semántico.
 
 Instrucciones:
-1. Conservar el lexer que ya desarrollaste, incluyendo tus tokens adicionales.
-2. Integrarlo con main.py y completar los TODO de parser/parser.py.
-3. Reconocer declaraciones, asignaciones, expresiones y estructuras de control.
-4. Incorporar las reglas sintácticas correspondientes a tus tokens adicionales, o justificar por qué no necesitan cambios en el parser.
-5. Probar un programa válido, otro con error sintáctico y uno que use tu extensión.
+1. Conservar su lexer, parser y AST de entregas anteriores, incluyendo las extensiones personales.
+2. Completar los 6 métodos TODO de semantic/analizador.py para validar declaraciones, variables, tipos, operaciones y condiciones.
+3. Ampliar las reglas semánticas para las características individuales de su lenguaje, cuando corresponda; explicar si no requieren cambios.
+4. Probar casos correctos y errores semánticos, incluida una demostración con sus variaciones personales.
+5. Documentar la tabla de símbolos y los resultados de las pruebas.
 
-Esta entrega NO incluye análisis semántico ni ejecución de código.
-
-Entregable: enlace al repositorio GitHub con el código y evidencias de ejecución.
+Entregable: enlace al repositorio GitHub con código, README y evidencia de pruebas. No se requiere semántica avanzada, TAC, máquina virtual ni frontend.
