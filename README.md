@@ -196,7 +196,3 @@ En [`evidencias/entrega3/`](evidencias/entrega3/) está la salida de cada caso e
 3. `07_extension_valida_tabla`: programa válido con mi extensión y su tabla de símbolos.
 4. `08` a `11`: errores semánticos de mi extensión.
 5. `12_pruebas_unitarias`: resumen de las 84 pruebas.
-
-## Alcance
-
-Se comprueban **estructura y coherencia** de declaraciones y tipos. No se calculan valores ni se ejecutan condiciones o ciclos: no es un intérprete.
